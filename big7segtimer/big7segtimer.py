@@ -1,3 +1,6 @@
+# NeoPixelをいくつか（４個くらい）つないで７セグにし、マージャン大会用のタイマーにする
+# 2017-03-21
+# 
 from machine import Pin,I2C,Timer
 from neopixel import NeoPixel
 import time
