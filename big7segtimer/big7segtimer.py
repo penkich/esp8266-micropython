@@ -1,5 +1,6 @@
-# NeoPixelをいくつか（４個くらい）つないで７セグにし、マージャン大会用のタイマーにする
-# 2017-03-21
+# NeoPixelをいくつか（1セグ４個くらい）つないで７セグにし、マージャン大会用のタイマーにする
+# 7segのaからbcdefgと順番に信号線で一直列につなぐ
+# 2017-03-21 by penkich
 # 
 from machine import Pin,I2C,Timer
 from neopixel import NeoPixel
