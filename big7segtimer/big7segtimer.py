@@ -7,14 +7,15 @@ from machine import Pin,I2C,Timer
 from neopixel import NeoPixel
 import time
 
+npix = 4 # 1セグを構成するNeoPixelの個数
+t = 50 # 時間設定（分） 
+
 pin = Pin(4,Pin.OUT) # NeoPixelの信号線を接続
-np = NeoPixel(pin,28)
+np = NeoPixel(pin, 7 * npix)
 buz = Pin(5,Pin.OUT) # 圧電ブザーを接続
 buz.high() # 起動時に少し鳴らす
 time.sleep(1)
 buz.low()
-npix = 4 # 1セグを構成するNeoPixelの個数
-t = 50 # 時間設定（分） 
 
 def seg7(n,rgb):
     data = [0xfc,0x60,0xda,0xf2,0x66,0xb6,0xbe,0xe4,0xfe,0xe6,0xee]
