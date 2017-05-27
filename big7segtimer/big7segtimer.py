@@ -13,9 +13,9 @@ t = 50 # 時間設定（分）
 pin = Pin(4,Pin.OUT) # NeoPixelの信号線を接続
 np = NeoPixel(pin, 7 * npix)
 buz = Pin(5,Pin.OUT) # 圧電ブザーを接続
-buz.high() # 起動時に少し鳴らす
+buz.on() # 起動時に少し鳴らす
 time.sleep(1)
-buz.low()
+buz.off()
 
 def seg7(n,rgb):
     data = [0xfc,0x60,0xda,0xf2,0x66,0xb6,0xbe,0xe4,0xfe,0xe6,0xee]
@@ -80,10 +80,10 @@ def led():
         seg7(0,red)
     else:
         seg7(0,red)
-        buz.high() # 時間ぎれでブザー鳴る
+        buz.on() # 時間ぎれでブザー鳴る
         time.sleep(0.8)
         seg7(0,blank)
-        buz.low()
+        buz.off()
         time.sleep(0.1)
 
 i = t * 60
