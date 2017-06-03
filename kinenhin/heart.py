@@ -1,6 +1,6 @@
 #
 # neopixcel test programn 2017-06-03
-# CC0:No writes reserved
+# CC0:No rights reserved
 # ハートの鼓動をイメージして色を変化させる
 #
 
