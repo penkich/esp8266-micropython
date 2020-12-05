@@ -1,0 +1,299 @@
+プログラミング演習
+# ex1
+# 単色（赤）
+# WebREPL を使って、LEDを点灯させてみます。以下の2行をWebREPLから入力します。
+np[0] = red
+np.write()
+
+# ex2
+# 単色（黄）
+np[0] = yellow
+np.write()
+
+# ex3
+# 色がどのように定義されているか表示させてみる
+# pythonの「リスト」という型で定義。左からRGBの明るさを0?255で指定。
+red
+
+# ex4
+# 他の色の定義を表示させてみる（コンマで一気に）
+green, yellow, blue
+
+# ex5
+# 自分で好きなように定義して光らせる
+pink = [100, 50, 50]
+np[0] = pink
+np.write()
+
+# ex6
+# 3箇所光らせる
+np[0] = green
+np[1] = yellow
+np[2] = blue
+np.write()
+
+# ex7
+# 3箇所光らせる（Python独自の表記法です。簡単でしょ！）
+np[0], np[1], np[2] = red, blue, sky
+np.write()
+
+# ex8
+# 7箇所全部光らせる
+np[0], np[1], np[2], np[3], np[4], np[5], np[6] = red, orange, yellow, green, sky, blue, purple
+np.write()
+
+# ex8
+# リストを使う
+# colors7 = [red, orange, yellow, green, sky, blue, purple] はboot.pyで定義済です。
+# リストのインデックスは、ゼロから始まります。
+# １つづつ指定するのは面倒ですね。
+np[0], np[1], np[2], np[3], np[4], np[5], np[6] =  colors7[0], colors7[1], colors7[2], colors7[3], colors7[4], colors7[5], colors7[6]
+np.write()
+
+# ex9
+# 関数で簡単に。
+# 関数setcolors()は、boot.pyで定義済です。
+# colors7 = [orange, yellow, green, sky, blue, purple, red]はboot.pyで定義済です。
+# リストを関数に渡すだけなので、かなり簡単になりました。
+setcolors(np, colors7)
+np.write()
+
+# ex10
+# 全部消す
+# 関数clear()は、boot.pyで定義済です。
+clear()
+
+# ex11
+# スライス
+# colors=[red,orange,yellow,ygreen,green,tur,sky,blue,bluep,purple,white]は、boot.pyで定義済です。
+# スライスは、Python独自の要素指定方法です。非常に便利です。
+# colors[0:4]は、リストの要素０番目から４ー１番目まで連続指定する意味です。
+# なお、端っこは省略できます。
+# colors[0:4] -> colors[:4] と省略可。colors[4:11] -> colors[4:] と省略可。
+c = colors[0:4]
+setcolors(np, c)
+np.write()
+
+# ex12
+# スライス
+clear()
+c = colors[4:9]
+setcolors(np, c)
+np.write()
+
+# ex12
+# マイナスで指定することもできます。（-1 ・・・最終要素）
+# なお、要素の最後まで指定する場合は、colors[-5:] のように端を省略するとよい。
+clear()
+c = colors[-5:-1]
+setcolors(np, c)
+np.write()
+
+# ex13
+# スライスと連結
+clear()
+c = colors[1:3] + colors[7:10]
+setcolors(np, c)
+np.write()
+
+# ex14
+# Lチカ
+# Ctrl+E した後で、コピペし、その後Ctrl+Dしてください。
+# while 条件式:  は、条件式が真（True）の間、段落内を繰り返します。
+# 注）WebREPLでは、残念ながら8行くらいまでしかコピペできません。
+# 中断は、Ctrl+C
+while True:
+    np[0] = red
+    np.write()
+    time.sleep(0.5)
+    clear()
+    time.sleep(0.5)
+
+# ex15
+# ぐるぐる回してみる
+# colors=[red,orange,yellow,ygreen,green,tur,sky,blue,bluep,purple,white]は、boot.pyで定義済です。
+# time.sleep(n) は、n秒間何もしない（眠ってる）という意味です。
+# c = c[1:] + c[0:1] で先頭要素が削除され、末尾に追加されます。
+c = colors[:7]
+while True:
+    c = c[1:] + c[0:1]
+    setcolors(np, c)
+    np.write()
+    time.sleep(0.5)
+
+# ex16
+# 明るくなったり暗くなったり
+clear()
+while True:
+    for i in range(256):
+        power = i / 256
+        np[0] = [int(red[0] * power), int(red[1] * power), int(red[2] * power)]
+        np.write()
+        time.sleep(0.002)
+
+# ex17
+# 明るくなったり暗くなったり（リスト全体で）
+# colors7 = [red, orange, yellow, green, sky, blue, purple] はboot.pyで定義済です。
+# 関数 colors_powered()は、boot.py で定義済です。カラーリストの要素のそれぞれにpowerの値を乗じます。
+c = colors7[:]
+while True:
+    for i in range(256):
+        power = i / 256
+        setcolors(np, colors_powered(c, power))
+        np.write()
+        time.sleep(0.002)
+
+
+# ex18
+# 明るさ調整（明るさリストで個別に）
+# c = colors7[:] は、ex17で定義済みです。
+# powers は、明るさの値をリストにしたものです。
+# 関数colors_powersed() は、boot.pyで定義済です。カラーリストの要素のそれぞれにpowersを乗じます。
+powers = [0.05, 0.1, 0.2, 0.5, 0.7, 1.0, 1.2]
+setcolors(np, colors_powersed(c, powers))
+np.write()
+
+# ex19
+# 明るさリストを回す
+# c = colors7[:] は、ex17で定義済みです。
+powers = [0.05, 0.1, 0.2, 0.5, 0.7, 1.0, 1.2]
+while True:
+    powers = powers[1:] + powers[0:1]
+    setcolors(np, colors_powersed(c, powers))
+    np.write()
+    time.sleep(0.5)
+
+# ex20
+# 色と明るさリストを回す
+# c = colors7[:] は、ex17で定義済みです。
+powers = [0, 1, 0, 1, 0, 1, 0]
+while True:
+    c = c[1:] + c[0:1]
+    for i in range(7):
+        powers = powers[1:] + powers[0:1]
+        setcolors(np, colors_powersed(c, powers))
+        np.write()
+        time.sleep(0.1)
+
+# ex21
+# ランダムな値を生成(micropython 標準関数)
+# urandom.getrandbits(n) --> 0から2のn乗-1までのランダムな値を生成
+urandom.getrandbits(12)
+
+# ex22
+# ランダムな値（自作関数）
+# 関数randint() は、boot.pyで定義済みです。
+# randint(n) --> 0からn-1までのランダムな値を生成します。
+randint(100)
+
+# ex23
+# リスト内包表記（Python独自の便利機能です）
+[i for i in range(7)]
+
+# ex24
+# リスト内包表記（めちゃ簡単にリストが生成できます）
+[random(10) for i in range(7)]
+
+# ex25
+# ランダムなカラーリスト生成
+# colors=[red,orange,yellow,ygreen,green,tur,sky,blue,bluep,purple,white]は、boot.pyで定義済です。
+[colors[random(11)] for i in range(7)]
+
+# ex26
+# じゃ光らせてみる
+# colors=[red,orange,yellow,ygreen,green,tur,sky,blue,bluep,purple,white]は、boot.pyで定義済です。
+c = [colors[random(11)] for i in range(7)]
+setcolors(np, c)
+np.write()
+
+# ex27
+# じゃあLチカ
+while True:
+    setcolors(np, [colors[random(11)] for i in range(7)])
+    np.write()
+    time.sleep(0.5)
+
+# ex28
+# サイン関数
+# math.sin(n) nはラジアン（MicroPython 標準）
+# 関数 sine() は、boot.py で定義済です。sine(n) nは角度で指定します。
+sine(0)
+sine(30)
+sine(90)
+
+# ex29
+# サイン関数を使って明るさ変化
+# colors7 = [red, orange, yellow, green, sky, blue, purple] はboot.pyで定義済です。
+phase = 0
+while True:
+    powers = [(sine(phase)+1)/2 for i in range(7)] 
+    setcolors(np, colors_powersed(colors7, powers))
+    np.write()
+    time.sleep(0.001)
+    phase = phase + 5
+    phase = phase % 360
+
+# ex30
+# サイン関数を使って明るさ変化（色ランダム）
+# colors=[red,orange,yellow,ygreen,green,tur,sky,blue,bluep,purple,white]は、boot.pyで定義済です。
+# phase += 5 は、 phase = phase + 5 と同じです。
+# phase %= 360は、phase = phase % 360 と同じ意味です。
+# 一度では、コピペできないので・・・main.py に書いて、アップロードしましょ。
+phase = 0
+while True:
+    c = [colors[random(11)] for i in range(7)]
+    for i in range(72):
+        powers = [(sine(phase)+1)/2 for i in range(7)] 
+        setcolors(np, colors_powersed(c, powers))
+        np.write()
+        time.sleep(0.001)
+        phase += 5
+        phase %= 360
+
+# ex31
+# サイン関数を使って明るさ変化（色ランダム、位相ずらし）
+phase = 0
+while True:
+    c = [colors[random(11)] for i in range(7)]
+    p = [1,0,1,0,0,1,0]
+    for i in range(72):
+        powers = [(sine(phase + p[i]*90)+1)/2 for i in range(7)] 
+        setcolors(np, colors_powersed(c, powers))
+        np.write()
+        time.sleep(0.001)
+        phase += 5
+        phase %= 360
+
+# ex32
+# サイン関数を使って明るさ変化（色ランダム、位相ランダムずらし）
+phase = 0
+while True:
+    c = [colors[random(11)] for i in range(7)]
+    p = [random(2) for i in range(7)]
+    for i in range(720):
+        powers = [(sine(phase + p[i]*90)+1)/2 for i in range(7)] 
+        setcolors(np, colors_powersed(c, powers))
+        np.write()
+        time.sleep(0.001)
+        phase += 5
+        phase %= 360
+
+# ex33
+# npオブジェクトを、もう１つ作ってみる
+clear()
+np2 = neopixel.NeoPixel(machine.Pin(5),7)
+np2[0] = red
+np2.write()
+
+# ex34
+# np と np2 を交互に点灯
+np[0],np[1] = black,sky
+np2[0],np2[1] = red,black
+while True:
+    np.write()
+    time.sleep(0.5)
+    np2.write()
+    time.sleep(0.5)
+
+
+
